@@ -18,11 +18,22 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+      redirect_to @user, :notice => 'Cadastro atualizado com sucesso!'
+    else
+      render :edit
+    end
+  end
 
   #Strong Parameters - Estudar, implementado no Rails 4.1. Alguns tutoriais ainda nao apresentam o metodo, estando desatualizados
   def user_params
     params.require(:user).permit(:bio, :email, :full_name, :location, :password, :password_confirmation)
   end
-
 
 end
